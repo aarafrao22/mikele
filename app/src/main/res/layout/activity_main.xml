@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="bold"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/searchbutton"
+        android:layout_width="113dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="9dp"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cityInput"
+        app:layout_constraintTop_toBottomOf="@+id/keywordInput" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="94dp"
+        android:text="Find Tickets Around You"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/keywordInput"
+        android:layout_width="387dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:hint="Event Type or keyword to search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/cityInput"
+        android:layout_width="275dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:hint="City"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keywordInput" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="392dp"
+        android:layout_height="564dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityInput"
+        tools:listitem="@layout/ticket_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

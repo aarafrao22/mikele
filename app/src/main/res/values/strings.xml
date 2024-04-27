@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Mikele Simoni Event Finder CS 414 HW 4</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
+    <string name="default_web_client_id">825639740440-0eom75mdcjd8ci32q8957m6ul410bus9.apps.googleusercontent.com</string>
+</resources>

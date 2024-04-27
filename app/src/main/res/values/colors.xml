@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#09db1e</color> //for the text in retrofit
+    <color name="blue">#09b8db</color> //for text and button
+</resources>

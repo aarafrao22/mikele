@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "825639740440",
+    "project_id": "mikele-simoni-event-finder",
+    "storage_bucket": "mikele-simoni-event-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825639740440:android:a02e888c270f148dd24f6d",
+        "android_client_info": {
+          "package_name": "com.example.mikelesimonieventfindercs414hw4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Iw_BVNNut2E6qo5cSM2X6mLEocvqCBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
