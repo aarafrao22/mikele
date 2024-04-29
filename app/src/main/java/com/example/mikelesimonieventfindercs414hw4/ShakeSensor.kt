@@ -54,7 +54,7 @@ class ShakeSensor(context: Context, private val listener: ShakeListener) : Senso
     }
 
     companion object {
-        private const val TAG = "com.example.mikelesimonieventfindercs414hw4.ShakeSensor"
+        private const val TAG = "ShakeSensor"
         private const val MINIMUM_SENSITIVITY = 14.9
     }
 }

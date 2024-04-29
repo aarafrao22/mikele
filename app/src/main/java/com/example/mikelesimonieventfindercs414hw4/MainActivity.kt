@@ -1,11 +1,14 @@
 package com.example.mikelesimonieventfindercs414hw4
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,9 +24,10 @@ class MainActivity : AppCompatActivity(), ShakeListener {
 
     // declare components
     private lateinit var searchButton: Button
+    private lateinit var img_save: ImageView
     private lateinit var eventTypeInput: EditText
     private lateinit var locationInput: EditText
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     lateinit var eventsAdapter: EventsAdapter
     private var shakeSensor: ShakeSensor? = null
 
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity(), ShakeListener {
         searchButton = findViewById(R.id.searchbutton)
         eventTypeInput = findViewById(R.id.keywordInput)
         locationInput = findViewById(R.id.cityInput)
+        img_save = findViewById(R.id.img_save)
         recyclerView = findViewById(R.id.recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -47,6 +52,9 @@ class MainActivity : AppCompatActivity(), ShakeListener {
         shakeSensor = ShakeSensor(this, this)
         shakeSensor!!.registerShakeSensor()
 
+        img_save.setOnClickListener {
+            startActivity(Intent(this@MainActivity, FavouritesActivity::class.java))
+        }
         // onclick for the search button to search
         searchButton.setOnClickListener {
             it.hideKeyboard() // Call hideKeyboard when the button is clicked
@@ -66,6 +74,7 @@ class MainActivity : AppCompatActivity(), ShakeListener {
         shakeSensor?.unregisterShakeSensor()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onShakeDetected() {
         // Show a toast message indicating that the list is cleared
         Toast.makeText(this@MainActivity, "List Cleared!", Toast.LENGTH_SHORT).show()
@@ -104,6 +113,7 @@ class MainActivity : AppCompatActivity(), ShakeListener {
             }
 
             else -> {
+
                 service.searchEvents(API_KEY, eventType, location)
                     .enqueue(object : Callback<EventData> {
                         override fun onResponse(
