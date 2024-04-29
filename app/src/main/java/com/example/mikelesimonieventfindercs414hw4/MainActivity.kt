@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity(), ShakeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        TODO("Integrate Add to Fav Feature as well")
+
         // set components
         searchButton = findViewById(R.id.searchbutton)
         eventTypeInput = findViewById(R.id.keywordInput)
