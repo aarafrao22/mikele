@@ -1,7 +1,5 @@
 package com.example.mikelesimonieventfindercs414hw4
 
-
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -34,7 +32,7 @@ class ActivitySignIn : AppCompatActivity() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder()
-                 // Request ID token for Firebase Authentication
+                // Request ID token for Firebase Authentication
                 .build(),
 //            AuthUI.IdpConfig.FacebookBuilder().build()
             // Add more providers if needed
@@ -52,15 +50,6 @@ class ActivitySignIn : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                startActivity(Intent(this, MainActivity::class.java))
-                finish() // finish current activity
-            } else {
-                // Sign in failed
-                // Handle sign-in failure, e.g., display an error message
-            }
-        }
+        startActivity(Intent(this@ActivitySignIn, MainActivity::class.java))
     }
 }

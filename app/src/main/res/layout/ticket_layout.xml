@@ -4,30 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D8D8D8"
-    android:padding="10dp">
+    android:layout_marginBottom="12dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="388dp">
-
+            android:layout_height="wrap_content"
+            android:padding="12dp">
 
             <ImageView
                 android:id="@+id/Image"
-                android:layout_width="361dp"
-                android:layout_height="169dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                app:layout_constraintDimensionRatio="1,1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,76 +31,71 @@
 
             <TextView
                 android:id="@+id/EventName"
-                android:layout_width="353dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="13dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#09b8db"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/VenueName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Image"
                 tools:text="Concert Title" />
 
             <TextView
                 android:id="@+id/EventDateTime"
-                android:layout_width="221dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="146dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textColor="#09db1e"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/PriceRange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EventName"
                 tools:text="Jan 1, 2023 7:00 PM" />
 
             <TextView
                 android:id="@+id/EventLocation"
-                android:layout_width="350dp"
-                android:layout_height="23dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="17dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textStyle="italic"
-                app:layout_constraintBottom_toTopOf="@+id/EventDateTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EventDateTime"
                 tools:text="Address: " />
 
             <TextView
                 android:id="@+id/VenueName"
-                android:layout_width="351dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/EventLocation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EventLocation"
                 tools:text="Venue Name" />
 
             <Button
                 android:id="@+id/ButtonLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="#09B8DB"
                 android:text="See Tickets"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/PriceRange" />
 
             <TextView
                 android:id="@+id/PriceRange"
-                android:layout_width="221dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="34dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/ButtonLink"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/VenueName"
                 tools:text="Price Range: $50 - $200" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

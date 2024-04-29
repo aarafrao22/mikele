@@ -6,24 +6,26 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ShakeListener {
 
     // declare components
     private lateinit var searchButton: Button
     private lateinit var eventTypeInput: EditText
     private lateinit var locationInput: EditText
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var eventsAdapter: EventsAdapter
+    lateinit var recyclerView: RecyclerView
+    lateinit var eventsAdapter: EventsAdapter
+    private var shakeSensor: ShakeSensor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         eventsAdapter = EventsAdapter(emptyList())
         recyclerView.adapter = eventsAdapter
 
-
+        shakeSensor = ShakeSensor(this, this)
+        shakeSensor!!.registerShakeSensor()
 
         // onclick for the search button to search
         searchButton.setOnClickListener {
@@ -49,9 +52,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     // function to hide keyboard provided by professor
-    fun View.hideKeyboard() {
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private fun View.hideKeyboard() {
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        shakeSensor?.unregisterShakeSensor()
+    }
+
+    override fun onShakeDetected() {
+        // Show a toast message indicating that the list is cleared
+        Toast.makeText(this@MainActivity, "List Cleared!", Toast.LENGTH_SHORT).show()
+
+        // Set the text of eventTypeInput to an empty string
+        eventTypeInput.setText("")
+        locationInput.setText("")
+
+        // Check if the adapter has items and clear the list if it does
+        if (eventsAdapter.itemCount > 0) {
+            eventsAdapter.updateData(emptyList())
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
     }
 
 
@@ -59,34 +83,53 @@ class MainActivity : AppCompatActivity() {
     private fun performSearch(eventType: String, location: String) {
         when {
             eventType.isBlank() && location.isBlank() -> {
-                showAlertDialog("Search term and Location missing", "Please enter both a search term and location.")
+                showAlertDialog(
+                    "Search term and Location missing",
+                    "Please enter both a search term and location."
+                )
             }
+
             eventType.isBlank() -> {
-                showAlertDialog("Search term missing", "Search term cannot be empty, please enter a search term.")
+                showAlertDialog(
+                    "Search term missing",
+                    "Search term cannot be empty, please enter a search term."
+                )
             }
+
             location.isBlank() -> {
                 showAlertDialog("Location missing", "City cannot be empty. Please enter a city.")
             }
-            else -> {
-                service.searchEvents(API_KEY, eventType, location).enqueue(object : Callback<EventData> {
-                    override fun onResponse(call: Call<EventData>, response: Response<EventData>) {
-                        if (response.isSuccessful && !response.body()?._embedded?.events.isNullOrEmpty()) {
-                            response.body()?._embedded?.events?.let { events ->
-                                runOnUiThread { eventsAdapter.updateData(events) }
-                            }
-                        } else {
-                            runOnUiThread {
-                                showAlertDialog("No Results Found", "No events found matching your search. Try again.")
-                            }
-                        }
-                    }
 
-                    override fun onFailure(call: Call<EventData>, t: Throwable) {
-                        runOnUiThread {
-                            showAlertDialog("Error", "An error occurred while attempting to retrieve data.")
+            else -> {
+                service.searchEvents(API_KEY, eventType, location)
+                    .enqueue(object : Callback<EventData> {
+                        override fun onResponse(
+                            call: Call<EventData>,
+                            response: Response<EventData>
+                        ) {
+                            if (response.isSuccessful && !response.body()?._embedded?.events.isNullOrEmpty()) {
+                                response.body()?._embedded?.events?.let { events ->
+                                    runOnUiThread { eventsAdapter.updateData(events) }
+                                }
+                            } else {
+                                runOnUiThread {
+                                    showAlertDialog(
+                                        "No Results Found",
+                                        "No events found matching your search. Try again."
+                                    )
+                                }
+                            }
                         }
-                    }
-                })
+
+                        override fun onFailure(call: Call<EventData>, t: Throwable) {
+                            runOnUiThread {
+                                showAlertDialog(
+                                    "Error",
+                                    "An error occurred while attempting to retrieve data."
+                                )
+                            }
+                        }
+                    })
             }
         }
     }
