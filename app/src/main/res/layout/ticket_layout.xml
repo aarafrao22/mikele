@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp">
+    android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,12 +19,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/Image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,11 +36,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#09b8db"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Image"
+                app:layout_constraintStart_toStartOf="@+id/Image"
                 app:layout_constraintTop_toBottomOf="@+id/Image"
                 tools:text="Concert Title" />
 
@@ -50,8 +52,8 @@
                 android:layout_marginTop="8dp"
                 android:textColor="#09db1e"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/EventName"
+                app:layout_constraintStart_toStartOf="@+id/EventName"
                 app:layout_constraintTop_toBottomOf="@+id/EventName"
                 tools:text="Jan 1, 2023 7:00 PM" />
 
@@ -61,8 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/EventDateTime"
+                app:layout_constraintStart_toStartOf="@+id/EventDateTime"
                 app:layout_constraintTop_toBottomOf="@+id/EventDateTime"
                 tools:text="Address: " />
 
@@ -72,50 +74,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/EventLocation"
+                app:layout_constraintStart_toStartOf="@+id/EventLocation"
                 app:layout_constraintTop_toBottomOf="@+id/EventLocation"
                 tools:text="Venue Name" />
-
-            <Button
-                android:id="@+id/ButtonLink"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#09B8DB"
-                android:text="See Tickets"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PriceRange"
-                app:layout_constraintWidth_percent="0.4" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/SaveButtonLink"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/white"
-                android:text="Save For Later"
-                android:textColor="@color/blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/PriceRange"
-                app:layout_constraintTop_toBottomOf="@+id/PriceRange"
-                app:layout_constraintWidth_percent="0.4"
-                app:strokeColor="@color/blue"
-                app:strokeWidth="1dp" />
 
             <TextView
                 android:id="@+id/PriceRange"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/ButtonLink"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/VenueName"
+                app:layout_constraintStart_toStartOf="@+id/VenueName"
                 app:layout_constraintTop_toBottomOf="@+id/VenueName"
                 tools:text="Price Range: $50 - $200" />
+
+            <Button
+                android:id="@+id/ButtonLink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#09B8DB"
+                android:text="Check"
+                app:layout_constraintEnd_toStartOf="@+id/SaveButtonLink"
+                app:layout_constraintStart_toStartOf="@+id/PriceRange"
+                app:layout_constraintTop_toBottomOf="@+id/PriceRange" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/SaveButtonLink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/white"
+                android:text="Save"
+                android:textColor="@color/blue"
+                app:layout_constraintEnd_toEndOf="@+id/PriceRange"
+                app:layout_constraintStart_toEndOf="@+id/ButtonLink"
+                app:layout_constraintTop_toBottomOf="@+id/PriceRange"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="1dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

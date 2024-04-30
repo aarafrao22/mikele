@@ -77,14 +77,16 @@ class MainActivity : AppCompatActivity(), ShakeListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onShakeDetected() {
         // Show a toast message indicating that the list is cleared
-        Toast.makeText(this@MainActivity, "List Cleared!", Toast.LENGTH_SHORT).show()
 
         // Set the text of eventTypeInput to an empty string
-        eventTypeInput.setText("")
-        locationInput.setText("")
 
         // Check if the adapter has items and clear the list if it does
         if (eventsAdapter.itemCount > 0) {
+            eventTypeInput.setText("")
+            locationInput.setText("")
+
+            Toast.makeText(this@MainActivity, "List Cleared!", Toast.LENGTH_SHORT).show()
+
             eventsAdapter.updateData(emptyList())
             recyclerView.adapter?.notifyDataSetChanged()
         }

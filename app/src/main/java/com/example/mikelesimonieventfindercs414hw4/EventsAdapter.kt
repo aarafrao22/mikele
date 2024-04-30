@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.UUID
 
 class EventsAdapter(private var events: List<Event>) :
     RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
@@ -103,19 +104,17 @@ class EventsAdapter(private var events: List<Event>) :
         }
 
         private fun saveEventDataToFirebase(event: Event) {
-            // Create a unique key for the event data
-            val eventId = databaseReference.child("events").push().key ?: ""
+            // Generate a unique ID for the event data
+            val eventId = UUID.randomUUID().toString()
 
             // Create a new child node under 'events' with the unique key
             val eventReference = databaseReference.child("events").child(eventId)
 
             // Set the event data under the unique key
-            eventReference.setValue(event)
-                .addOnSuccessListener {
+            eventReference.setValue(event).addOnSuccessListener {
                     // Data successfully saved
-                    Log.d("EventsAdapter", "Event data saved to Firebase: $eventId")
-                }
-                .addOnFailureListener { e ->
+                Log.d("EventsAdapter", "Event data saved to Firebase with ID $eventId")
+            }.addOnFailureListener { e ->
                     // Failed to save data
                     Log.e("EventsAdapter", "Failed to save event data to Firebase", e)
                 }

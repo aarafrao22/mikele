@@ -47,16 +47,15 @@ class FavouritesActivity : AppCompatActivity() {
                 if (dataSnapshot.exists()) {
                     val eventsList = mutableListOf<Event>()
 
+                    for (eventSnapshot in dataSnapshot.children) {
+                        // Convert each child node to an Event object
+                        val event = eventSnapshot.getValue(Event::class.java)
+                        event?.let { eventsList.add(it) }
+                    }
+
+                    // Update the adapter with the fetched data
                     eventsAdapter.updateData(eventsList)
 
-//                    for (eventSnapshot in dataSnapshot.children) {
-//
-//                        // Convert each child node to an Event object
-//                        val event = eventSnapshot.getValue(Event::class.java)
-//                        event?.let { eventsList.add(it) }
-//
-//
-//                    }
                     // Now, eventsList contains all the events fetched from the database
                     // You can use this list as needed, such as displaying it in a RecyclerView
                 } else {
